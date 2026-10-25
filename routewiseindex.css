@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+:root {
+  --color-base: #FFFFFF;
+  --color-panel: #F6F6F4;
+  --color-panel2: #EEEEEA;
+  --color-surface: #FCFBF9;
+  --color-line: #E2E2DD;
+  --color-signal: #C2570C;
+  --color-cool: #0F766E;
+  --color-danger: #B91C1C;
+  --color-primary: #16181C;
+  --color-muted: #6B7078;
+
+  --shadow-card: 0 1px 2px rgba(16, 17, 20, 0.04), 0 1px 3px rgba(16, 17, 20, 0.05);
+  --shadow-card-hover: 0 2px 4px rgba(16, 17, 20, 0.05), 0 10px 24px -8px rgba(16, 17, 20, 0.14);
+  --shadow-pop: 0 12px 32px -8px rgba(16, 17, 20, 0.18), 0 24px 56px -16px rgba(16, 17, 20, 0.16);
+}
+
+.dark {
+  --color-base: #0B0F14;
+  --color-panel: #121821;
+  --color-panel2: #182130;
+  --color-surface: #101823;
+  --color-line: #232D3B;
+  --color-signal: #FF9F1C;
+  --color-cool: #3FB8AF;
+  --color-danger: #E85D5D;
+  --color-primary: #E6EDF3;
+  --color-muted: #7C8B9A;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 4px 16px -2px rgba(0, 0, 0, 0.55);
+  --shadow-pop: 0 16px 40px -8px rgba(0, 0, 0, 0.65);
+}
+
+body {
+  background: var(--color-base);
+  color: var(--color-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-base);
+}
+
+:where(a, button, input, select, textarea, summary, [role='button']):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-signal) 50%, transparent);
+  outline-offset: 2px;
+}
+
+.num-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.35s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+@keyframes confetti-fall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(240px) rotate(720deg); }
+}
+
+.confetti-fall {
+  animation: confetti-fall 1s ease-in forwards;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cmd-slide {
+  from { opacity: 0; transform: scale(0.98) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes shield-check {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes token-cache {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes token-fallback {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+.typing-dot {
+  animation: typing-bounce 1s ease-in-out infinite;
+}
+
+/* streaming caret shown while tokens are still arriving */
+@keyframes stream-blink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.stream-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--color-signal);
+  box-shadow: 0 0 8px -1px var(--color-signal);
+  animation: stream-blink 1.1s step-end infinite;
+}
+
+/* chat message entrance */
+@keyframes chat-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.chat-in {
+  animation: chat-in 0.25s ease-out both;
+}
+
+/* custom scrollbar for chat */
+.chat-scroll::-webkit-scrollbar { width: 4px; }
+.chat-scroll::-webkit-scrollbar-track { background: transparent; }
+.chat-scroll::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 4px; }
+.chat-scroll::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+/* auth page */
+@keyframes auth-flow {
+  0% { left: 0%; opacity: 0; transform: translateX(-8px); }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: calc(100% - 10px); opacity: 0; transform: translateX(8px); }
+}
+
+@keyframes auth-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 159, 28, 0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 159, 28, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 159, 28, 0); }
+}
+
+@keyframes auth-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.auth-flow-dot {
+  animation: auth-flow 3.2s ease-in-out infinite;
+}
+
+.auth-pulse {
+  animation: auth-pulse 2.4s ease-out infinite;
+}
+
+.auth-float {
+  animation: auth-float 5s ease-in-out infinite;
+}
